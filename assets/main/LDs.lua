@@ -15,7 +15,7 @@ addCommandHandler(config.command,
 	        local fetchURL = string.format("https://luac.mtasa.com/?compile=%i&debug=%i&obfuscate=%i", compileEnabled, debugLevel, obfuscateLevel)
             for _, resource in ipairs(getResources()) do
                 local resourceName = getResourceName(resource)
-                if config.resourcesBlacklist[resourceName] then
+                if not config.resourcesBlacklist[resourceName] then
                     local metaFile = xmlLoadFile(":"..resourceName.."/meta.xml")
                     if metaFile then
                         for _, node in ipairs(xmlNodeGetChildren(metaFile)) do
