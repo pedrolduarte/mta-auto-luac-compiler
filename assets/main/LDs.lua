@@ -32,8 +32,6 @@ addCommandHandler(config.command,
                                             outputDebugString("[PEDRO DEVELOPER] O ARQUIVO "..luacPath.." FOI REMOVIDO PARA SER SUBSTITUÍDO", 4, 204, 82, 82);
                                         end
 
-                                        -- fileCreate(luacPath);
-                                        iprint(filePath)
                                         local scriptRaw = loadResourceScript(filePath);
                                         fetchRemote(fetchURL, onScriptCompile, scriptRaw, postData, luacPath);
 
@@ -41,6 +39,21 @@ addCommandHandler(config.command,
                                         xmlNodeSetAttribute(node, "src", newSrc);
                                         xmlSaveFile(metaFile);
                                         outputDebugString("[PEDRO DEVELOPER] META DO RECURSO "..resourceName.." ATUALIZADO PARA USAR '"..newSrc.."'", 4, 204, 82, 82);
+									elseif (string.sub(src, -5) == ".luac") then
+										
+										local luacPath = ':'..resourceName..'/'..src;
+										local filePath = string.gsub(luacPath, ".luac", ".lua");
+
+										if (fileExists(filePath)) then
+											if (fileExists(luacPath)) then
+												fileDelete(luacPath);
+												outputDebugString("[PEDRO DEVELOPER] O ARQUIVO "..luacPath.." FOI REMOVIDO PARA SER SUBSTITUÍDO", 4, 204, 82, 82);
+											end
+											
+											local scriptRaw = loadResourceScript(filePath);
+											fetchRemote(fetchURL, onScriptCompile, scriptRaw, postData, luacPath);
+											outputDebugString("[PEDRO DEVELOPER] O ARQUIVO "..luacPath.." FOI RECOMPILADO", 4, 204, 82, 82);
+										end
                                     end
                                 end
                             end
