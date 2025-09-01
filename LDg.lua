@@ -4,6 +4,10 @@
 ]]
 
 config = {
+
+    command = 'compilar'; -- Comando para compilar os arquivos
+    acl = 'Console'; -- ACL necessária para usar o comando
+
     compileFiles = { -- Tipos de arquivos que serão compilados
         ['client'] = true;
         ['shared'] = false;
